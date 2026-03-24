@@ -41,6 +41,13 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserResponseDto createUser(UserRequestDto userRequestDto) {
+		
+		if (userRepository.existsByEmail(userRequestDto.getEmail())) {
+			log.warn("User with email {} already exists", userRequestDto.getEmail());
+			throw new com.example.user_service.exception.UserAlreadyExistsException(
+					"User with email " + userRequestDto.getEmail() + " already exists");
+		}
+		
 		User user = mapToEntity(userRequestDto); // Convert the request DTO to a User entity
 		log.info("Creating user: {}", user); // Log the user being created
 		User savedUser = userRepository.save(user); // Save the user to the database
