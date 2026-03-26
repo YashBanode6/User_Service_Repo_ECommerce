@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
 	            LocalDateTime.now()
 	    );
 
-	    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+	    return ResponseEntity.badRequest().body(errorResponse);
 	}
 	
 	@ExceptionHandler(Exception.class)

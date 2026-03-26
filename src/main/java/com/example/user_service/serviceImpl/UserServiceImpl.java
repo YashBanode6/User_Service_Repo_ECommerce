@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.example.user_service.dto.UserRequestDto;
 import com.example.user_service.dto.UserResponseDto;
 import com.example.user_service.entity.User;
+import com.example.user_service.exception.UserAlreadyExistsException;
 import com.example.user_service.repo.UserRepository;
 import com.example.user_service.service.UserService;
 
@@ -20,17 +21,17 @@ public class UserServiceImpl implements UserService {
 	
 	private final UserRepository userRepository; 
 	
-	public UserResponseDto mapToResponseDto(User user) {
+	private UserResponseDto mapToResponseDto(User user) {
 		UserResponseDto userResponseDto = new UserResponseDto();
 		userResponseDto.setId(user.getId());
 		userResponseDto.setName(user.getName());
 		userResponseDto.setEmail(user.getEmail());
-		userResponseDto.setLocalDateTime(user.getCreatedAt());
+		userResponseDto.setCraetedAt(user.getCreatedAt());
 
 		return userResponseDto;
 	}
 	
-	public User mapToEntity(UserRequestDto userRequestDto) {
+	private User mapToEntity(UserRequestDto userRequestDto) {
 		User user = new User();
 		user.setName(userRequestDto.getName());
 		user.setEmail(userRequestDto.getEmail());
@@ -44,14 +45,12 @@ public class UserServiceImpl implements UserService {
 		
 		if (userRepository.existsByEmail(userRequestDto.getEmail())) {
 			log.warn("User with email {} already exists", userRequestDto.getEmail());
-			throw new com.example.user_service.exception.UserAlreadyExistsException(
+			throw new UserAlreadyExistsException(
 					"User with email " + userRequestDto.getEmail() + " already exists");
 		}
 		
 		User user = mapToEntity(userRequestDto); // Convert the request DTO to a User entity
-		log.info("Creating user: {}", user); // Log the user being created
 		User savedUser = userRepository.save(user); // Save the user to the database
-		log.info("User created with ID: {}", savedUser); // Log the ID of the created user
 		return mapToResponseDto(savedUser); // Convert the saved User entity back to a response DTO and return it
 	}
 

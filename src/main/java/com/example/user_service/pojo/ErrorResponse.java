@@ -6,14 +6,13 @@ import lombok.Data;
 import lombok.Getter;
 
 @Data
-@Getter
 public class ErrorResponse {
-	private String errorMessage;
+	private String message;
 	private int status;
 	private LocalDateTime timestamp;
 	
-	public ErrorResponse(String errorMessage, int status, LocalDateTime timestamp) {
-		this.errorMessage = errorMessage;
+	public ErrorResponse(String message, int status, LocalDateTime timestamp) {
+		this.message = message;
 		this.status = status;
 		this.timestamp = timestamp;
 	}
