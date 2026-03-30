@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
 		
 		User user = mapToEntity(userRequestDto); // Convert the request DTO to a User entity
 		User savedUser = userRepository.save(user); // Save the user to the database
+		log.info("User with email {} created successfully", savedUser.getEmail());
 		return mapToResponseDto(savedUser); // Convert the saved User entity back to a response DTO and return it
 	}
 

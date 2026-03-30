@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 public class ErrorResponse {
+	
 	private String message;
 	private int status;
 	private LocalDateTime timestamp;
@@ -17,6 +18,7 @@ public class ErrorResponse {
 		this.status = status;
 		this.timestamp = timestamp;
 	}
+
 	    public void rotate(int[] nums, int k) {
 	        int n = nums.length;
 
