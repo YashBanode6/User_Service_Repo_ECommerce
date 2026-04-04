@@ -2,6 +2,7 @@ package com.example.user_service.serviceImpl;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import com.example.user_service.dto.UserRequestDto;
@@ -20,22 +21,17 @@ import lombok.extern.slf4j.Slf4j;
 public class UserServiceImpl implements UserService {
 	
 	private final UserRepository userRepository; 
+	private final ModelMapper modelMapper; // For mapping between DTOs and entities
 	
 	private UserResponseDto mapToResponseDto(User user) {
-		UserResponseDto userResponseDto = new UserResponseDto();
-		userResponseDto.setId(user.getId());
-		userResponseDto.setName(user.getName());
-		userResponseDto.setEmail(user.getEmail());
-		userResponseDto.setCraetedAt(user.getCreatedAt());
+		UserResponseDto userResponseDto = modelMapper.map(user, UserResponseDto.class); // Map User entity to UserResponseDto
 
+		// Manually set the fullName field in the response DTO
 		return userResponseDto;
 	}
 	
 	private User mapToEntity(UserRequestDto userRequestDto) {
-		User user = new User();
-		user.setName(userRequestDto.getName());
-		user.setEmail(userRequestDto.getEmail());
-		user.setPassword(userRequestDto.getPassword());
+		User user = modelMapper.map(userRequestDto, User.class); // Map UserRequestDto to User entity
 
 		return user;
 	}

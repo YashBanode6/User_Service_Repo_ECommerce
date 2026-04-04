@@ -27,6 +27,7 @@ public class UserController {
 	
 	@PostMapping
 	public UserResponseDto createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
+		log.info("Received request to create user with email: {}", userRequestDto.getEmail());
 		return userService.createUser(userRequestDto); // Create a new user and return the created user's details
 	}
 	
