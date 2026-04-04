@@ -27,12 +27,14 @@ public class UserServiceImpl implements UserService {
 		UserResponseDto userResponseDto = modelMapper.map(user, UserResponseDto.class); // Map User entity to UserResponseDto
 
 		// Manually set the fullName field in the response DTO
+		log.info("Mapping User entity to UserResponseDto for user with email {}", user.getEmail());
 		return userResponseDto;
 	}
 	
 	private User mapToEntity(UserRequestDto userRequestDto) {
 		User user = modelMapper.map(userRequestDto, User.class); // Map UserRequestDto to User entity
-
+		
+		log.info("Mapping UserRequestDto to User entity for email {}", userRequestDto.getEmail());
 		return user;
 	}
 	
