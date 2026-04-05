@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserResponseDto getUserByEmail(String email) {
 		// TODO Auto-generated method stub
+		log.info("Fetching user with email: {}", email);
 		return null;
 	}
 
