@@ -35,5 +35,10 @@ public class UserController {
 	public List<UserResponseDto> getAllUsers() {
 		return userService.getAllUsers(); // Return a list of all users
 	}
+	
+	public UserResponseDto getUserByEmail(String email) {
+		log.info("Received request to get user with email: {}", email);
+		return userService.getUserByEmail(email); // Return the details of a user based on their email
+	}
 
 }

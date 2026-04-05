@@ -62,6 +62,12 @@ public class UserServiceImpl implements UserService {
 				.toList(); // Collect the results into a List
 	}
 
+	@Override
+	public UserResponseDto getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }
