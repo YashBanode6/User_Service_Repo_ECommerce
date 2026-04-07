@@ -4,5 +4,13 @@ public enum Constants {
 	USER_ALREADY_EXISTS("User with the given email already exists"),
 	USER_NOT_FOUND("User not found with the given id");
 
-	
+	private final String message;
+
+	Constants(String message) {
+		this.message = message;
+	}
+
+	public String getMessage() {
+		return message;
+	}
 }
