@@ -2,6 +2,7 @@ package com.example.user_service.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,20 +23,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserController {
 	
-	private final UserService userService; 
+	@Autowired
+	private UserService userService; 
 	
 	
-	@PostMapping
+	@PostMapping("/create")
 	public UserResponseDto createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
 		log.info("Received request to create user with email: {}", userRequestDto.getEmail());
 		return userService.createUser(userRequestDto); // Create a new user and return the created user's details
 	}
 	
-	@GetMapping
+	@GetMapping("/all")
 	public List<UserResponseDto> getAllUsers() {
 		return userService.getAllUsers(); // Return a list of all users
 	}
 	
+	@GetMapping("/email")
 	public UserResponseDto getUserByEmail(String email) {
 		log.info("Received request to get user with email: {}", email);
 		return userService.getUserByEmail(email); // Return the details of a user based on their email

@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserServiceImpl implements UserService {
 	
 	private final UserRepository userRepository; 
+	
 	private final ModelMapper modelMapper; // For mapping between DTOs and entities
 	
 	private UserResponseDto mapToResponseDto(User user) {
