@@ -1,7 +1,8 @@
 package com.example.user_service.serviceImpl;
 
 import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
+	
+	Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	private final UserRepository userRepository; 
 	
@@ -58,6 +61,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<UserResponseDto> getAllUsers() {
 		List<User> users = userRepository.findAll(); // Retrieve all users from the database
+		
+		logger.info("Fetched {} users from the database", users.size());
+		
 		return users.stream()
 				.map(this::mapToResponseDto) // Convert each User entity to UserResponseDto
 				.toList(); // Collect the results into a List
